@@ -5,11 +5,49 @@ $: << "./lib"
 require 'prowl/prowler'
 
 
+module Notificators
+
+  class ShellNotifier
+
+    ShellNotifier::APPLICATION = "Notifier"
+ 
+    def initialize( )
+
+      @prowler = Prowl::Prowler.new
+    end
+    
+    def send( event, description )
+
+      event_message       = format_event( event )
+      description_message = format_description( description )
+
+      @prowler.send_notification( ShellNotifier::APPLICATION, event_message, description_message ) 
+    end
+
+    private
+    def format_message( message ) 
+
+      return( " #{message} " )
+    end
+
+    def format_event( message )
+
+      return( format_message( message ) )
+    end
+
+    def format_description( message )
+
+      return( format_message( message ) )
+    end
+  end
+end
+
+
 #
 # :: MAIN ::
 #
 if( $0 == __FILE__ )
 
-  Prowl::Prowler.new( ).send_notification( "MyProwlerGateway", "MyEvent", ARGV[0] ) if( ARGV[0] )
+  Notificators::ShellNotifier.new().send( ARGV[0], ARGV[1] )
 end
 
