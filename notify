@@ -1,0 +1,15 @@
+#!/usr/bin/ruby
+
+$: << "./lib"
+
+require 'prowl/prowler'
+
+
+#
+# :: MAIN ::
+#
+if( $0 == __FILE__ )
+
+  Prowl::Prowler.new( ).send_notification( "MyProwlerGateway", "MyEvent", ARGV[0] ) if( ARGV[0] )
+end
+
