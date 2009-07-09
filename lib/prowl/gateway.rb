@@ -40,7 +40,7 @@ module Prowl
       options[:event]       = event,
       options[:description] = description
 
-      http_request = Net::HTTP::Get.new( "#{@url.path}?#{options.urlencode}" )
+      http_request = Net::HTTP::Get.new( "#{@url.path}?#{options.urlencode()}" )
 
       begin
         http_request.basic_auth( @username, @password )

@@ -48,6 +48,6 @@ end
 #
 if( $0 == __FILE__ )
 
-  Notificators::ShellNotifier.new().send( ARGV[0], ARGV[1] )
+  Notificators::ShellNotifier.new().send( ARGV[0], ARGV[1] ) if( ARGV[0] & ARGV[1] )
 end
 
