@@ -1,5 +1,4 @@
 
-
 require 'uri'
 require 'net/http'
 require 'net/https'
@@ -18,6 +17,7 @@ class Hash
   end
 end
 
+
 module Prowl
   class Gateway
 
@@ -25,14 +25,16 @@ module Prowl
 
     def initialize( username, password )
 
-      @url          = URI.parse( Prowler::PROWL_URL )
-      @username     = username
-      @password     = password
-      @http         = Net::HTTP.new( @url.host, @url.port )
-      @http.use_ssl = true
+      @username         = username
+      @password         = password
+      @url              = URI.parse( Gateway::PROWL_URL )
+      @http             = Net::HTTP.new( @url.host, @url.port )
+      @http.use_ssl     = true
+      @http.verify_mode = OpenSSL::SSL::VERIFY_NONE
     end
 
-    def send_notification( application, event, description )
+
+    def build_options( application, event, description )
 
       options = Hash.new()
 
@@ -40,7 +42,14 @@ module Prowl
       options[:event]       = event,
       options[:description] = description
 
-      http_request = Net::HTTP::Get.new( "#{@url.path}?#{options.urlencode()}" )
+      return( options )
+    end
+
+
+    def send_notification( application, event, description )
+
+      options      = build_options( application, event, description )
+      http_request = Net::HTTP::Get.new( "#{@url.path}?#{options.urlencode( )}" )
 
       begin
         http_request.basic_auth( @username, @password )
