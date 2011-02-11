@@ -1,0 +1,12 @@
+#!/usr/bin/ruby
+
+$:.unshift( File.join( File.dirname( __FILE__ ), %w[.. lib] ) )
+
+
+require 'rubygems'
+require 'rb_prowl'
+
+
+##
+# :: MAIN ::
+Prowl::CliApplication.run( Choice.choices[:event], Choice.choices[:description] )
