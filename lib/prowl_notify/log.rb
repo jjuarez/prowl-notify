@@ -2,7 +2,7 @@ require 'logger'
 require 'singleton'
 
 
-module Prowl
+module ProwlNotify
   
   class Log
     include Singleton

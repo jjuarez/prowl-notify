@@ -2,7 +2,7 @@ require 'yaml'
 require 'singleton'
 
 
-module Prowl
+module ProwlNotify
   
   class ConfigError < StandardError
   end

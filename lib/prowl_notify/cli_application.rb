@@ -1,6 +1,6 @@
 require 'prowler'
 
-module Prowl
+module ProwlNotify
   
   class CliApplication
     
