@@ -1,1 +1,2 @@
-A ruby class for interacting with Prowl.
+A ruby CLI for interacting with Prowl notifications system.
+This project is based on prowl gem
