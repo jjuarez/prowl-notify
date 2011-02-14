@@ -1,6 +1,3 @@
-require 'yaml'
-
-
 module ProwlNotify
 
   class YAMLFileNotFoundError < StandardError

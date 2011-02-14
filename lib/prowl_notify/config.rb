@@ -1,27 +1,29 @@
-require 'yaml'
-require 'singleton'
-
-
 module ProwlNotify
-  
-  class ConfigError < StandardError
-  end
+  module Config
+    class << self
 
-  class Config
-    include Singleton
+      def method_missing( method, *arguments, &block )
+        
+        @config ||= {}
+        
+        if( method =~/(.+)=$/)
+          
+          key           = method.to_s.delete( '=$' ).to_sym
+          @config[key] = (arguments.length == 1) ? arguments[0] : arguments
+        else
+          
+          return @config[method] if @config.keys.include?( method )
+        end
+      end
 
-    def initialize
-      @configuration ||= YAMLLoader.load( Choice.choices[:config] ) # @@Megaacoplamiento !!!!
-    rescue Exception => e
-      raise ConfigError.new( e.message )
-    end  
-
-    def keys
-      @configuration.keys
-    end
+      def configure       
+        yield self
+      end
     
-    def []( key )
-      @configuration[key.to_sym] if @configuration
+      def load( config_file )
+  
+        (@config = YAML.load_file( config_file )).keys { |k| config.key = @config[k] }
+      end
     end
   end
 end

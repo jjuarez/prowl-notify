@@ -1,8 +1,4 @@
-require 'choice'
-
-
 module ProwlNotify
-
   Choice.options do
   
     header ''
